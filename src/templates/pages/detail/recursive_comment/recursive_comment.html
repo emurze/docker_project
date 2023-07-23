@@ -1,0 +1,34 @@
+<article class="comment">
+    <div>
+        <div style="border: 1px ridge black; padding: 10px;
+                    margin-bottom: 10px">
+            <p>{{ forloop.counter }}</p>
+            <p>{{ comment.user }}</p>
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.created }}</p>
+        </div>
+        <button class="reply_button">reply</button>
+        <button class="show_more_button">show more</button>
+    </div>
+    <div class="reply_form" hidden>
+        <form method="POST">
+            {% csrf_token %}
+            {% with comment_form.content as content %}
+                <p>{{ content }}{{ content.errors }}</p>
+            {% endwith %}
+            <p>
+                <input type="hidden" name="parent_id" value="{{ comment.pk }}">
+            </p>
+            <p><button type="submit">send</button></p>
+        </form>
+    </div>
+    {% if comment.replies %}
+        <div class="reply_comments" style="margin-left: 100px;" hidden>
+            {% for reply_comment in comment.replies.all %}
+                {% with path='pages/detail/recursive_comment/recursive_comment.html' %}
+                    {% include path with comment=reply_comment comment_form=comment_form %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</article>

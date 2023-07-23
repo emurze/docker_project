@@ -1,0 +1,26 @@
+{% extends '../../base.html' %}
+
+{% block title %}
+    Share {{ title }}
+{% endblock %}
+
+{% block main %}
+    {% if sent %}
+        <h1>E-mail successfully sent</h1>
+        <p>
+            "{{ post.title }}" was successfully sent to
+            {{ form.cleaned_data.to }}.
+        </p>
+    {% else %}
+        <form action="{% url 'base:share' post.pk %}" method="POST">
+            {% csrf_token %}
+            {% for field in share_form %}
+                <p>
+                    {{ field }}
+                    {{ field.errors }}
+                </p>
+            {% endfor %}
+            <p><button type="submit">send</button></p>
+         </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="app_wrapper">
+        <header class="header">
+            {% include 'components/header.html' %}
+        </header>
+        <main class="main">
+            {% block main %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

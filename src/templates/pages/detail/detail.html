@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load filters %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block main %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content|markdown|truncatewords_html:30|linebreaks }}</p>
+    <a href={{ post.get_absolute_url_for_share }}>Share</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% with comment_form.content as content %}
+            <p>{{ content }}{{ content.errors }}</p>
+        {% endwith %}
+        <p><button type="submit">add</button></p>
+    </form>
+    <p>{{ post.tags.all|join:', ' }}</p>
+    <div>
+        {% with comments.count as comments_count %}
+            <h3>
+                {{ comments_count }} comment{{ comments_count|pluralize  }}
+            </h3>
+        {% endwith %}
+    </div>
+
+    <div>
+        {% for comment in comments %}
+            {% with path='pages/detail/recursive_comment/recursive_comment.html' %}
+                {% include path with comment=comment comment_form=comment_form %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            let reply_button_set = document.querySelectorAll('.reply_button')
+            let show_more_button_set = document.querySelectorAll('.show_more_button')
+
+            reply_button_set.forEach(reply_button => {
+                reply_button.addEventListener('click', () => {
+                    let comment = reply_button.closest('.comment')
+                    let reply_form = comment.querySelector('.reply_form')
+                    reply_form.toggleAttribute('hidden')
+                })
+            })
+            show_more_button_set.forEach(show_more_button => {
+                show_more_button.addEventListener('click', () => {
+                    let comment = show_more_button.closest('.comment')
+                    let reply_comments = comment.querySelector('.reply_comments')
+                    reply_comments.toggleAttribute('hidden')
+                })
+            })
+        })
+    </script>
+{% endblock %}

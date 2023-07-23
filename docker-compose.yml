@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  simple_blog:
+    build: .
+    image: 'simple_blog:1'
+    container_name: simple_blog
+    environment:
+      - 'ADMIN_USERNAME=adm2'
+      - 'ADMIN_PASSWORD=adm2'
+    ports:
+      - '8080:8080'
+    networks:
+      - backend
+    volumes:
+      - simple_blog:/usr/scr/simple_blog
+    restart: unless-stopped
+    depends_on:
+      - db_postgres
+  db_postgres:
+    image: 'postgres:13'
+    container_name: db_postgres
+    environment:
+      - 'POSTGRES_DB=simple_blog'
+      - 'POSTGRES_USER=simple_blog'
+      - 'POSTGRES_PASSWORD=12345678'
+    networks:
+      - backend
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+volumes:
+  simple_blog:
+  postgres:
+networks:
+  backend:
+    name: backend
+    driver: bridge
