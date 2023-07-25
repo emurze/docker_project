@@ -43,7 +43,9 @@ class Command(BaseCommand):
 
         comments = []
         for index, post in enumerate(posts):
+
             logger.debug(f'post {index}')
+
             random_tags = random.sample(tags, 5)
             post.tags.add(*map(attrgetter('name'), random_tags))
             comments += (

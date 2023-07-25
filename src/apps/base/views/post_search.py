@@ -31,7 +31,7 @@ class PostSearch(View):
             context |= {
                 'posts': posts,
             }
-            logger.debug(posts)
+            logger.debug(f'search found {posts.count()} posts')
 
         context |= {'form': SearchForm()}
         return render(request, self.template_name, context)

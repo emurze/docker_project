@@ -1,7 +1,11 @@
+import logging
+
 from django.core.management import BaseCommand
 from taggit.models import Tag
 
 from apps.base.models import Post, Comment
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -15,3 +19,5 @@ class Command(BaseCommand):
         Post.objects.all().delete()
         Comment.objects.all().delete()
         Tag.objects.all().delete()
+
+        logger.debug('Database has been cleaned.')

@@ -16,12 +16,7 @@ class PostList(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        print('PRINT LIST')
         logger.debug('DEBUG LIST')
-        logger.info('INFO LIST')
-        logger.warning('WARNING LIST')
-        logger.error('ERROR LIST')
-        logger.critical('CRITICAL LIST')
 
         if tag_slug := self.kwargs.get('tag_slug'):
             tag = Tag.objects.filter(slug=tag_slug)
