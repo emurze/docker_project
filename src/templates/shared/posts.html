@@ -1,0 +1,18 @@
+{% load filters %}
+{% if posts.exists %}
+    <div class="posts">
+        {% for post in posts %}
+            <article>
+                <h3><a href={{ post.get_absolute_url }}>{{ post.title }}</a></h3>
+                <p>{{ post.content|markdown|truncatewords_html:30|linebreaks }}</p>
+                <div>
+                    {% for tag in post.tags.all %}
+                        <a href={% url 'base:list_slug' tag.slug %}>
+                            {{ tag.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endif %}

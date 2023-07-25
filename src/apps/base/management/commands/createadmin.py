@@ -1,12 +1,14 @@
+import logging
+
 from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
-
 
 DEFAULT_ADMIN_NAME = 'adm1'
 DEFAULT_ADMIN_EMAIL = 'adm1@adm1.com'
 DEFAULT_ADMIN_PASSWORD = 'adm1'
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -27,4 +29,4 @@ class Command(BaseCommand):
                 email=options.get('email', DEFAULT_ADMIN_EMAIL),
                 password=options.get('password', DEFAULT_ADMIN_PASSWORD)
             )
-            print(f'{user.username} was created.')
+            logger.debug(f'{user.username} was created.')

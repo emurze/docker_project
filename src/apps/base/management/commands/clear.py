@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 from taggit.models import Tag
 
-from src.apps.base.models import Post, Comment
+from apps.base.models import Post, Comment
 
 
 class Command(BaseCommand):

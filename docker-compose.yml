@@ -4,6 +4,10 @@ services:
     build: .
     image: 'simple_blog:1'
     container_name: simple_blog
+
+#    stdin_open: true
+#    tty: true
+
     environment:
       - 'ADMIN_USERNAME=adm2'
       - 'ADMIN_PASSWORD=adm2'

@@ -1,12 +1,4 @@
 <div>
-    <style>
-        a, a:visited, a:hover, a:active {
-            color: inherit;
-            text-decoration: none;
-        }
-        a:hover{text-decoration: none;}
-        .current {font-weight: bold}
-    </style>
     {% if page_obj %}
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}"

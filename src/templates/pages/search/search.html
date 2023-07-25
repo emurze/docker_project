@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Main
+    Search
 {% endblock %}
 
 {% block main %}
-    {% if tag %}
-        <h2>Tag {{ tag }}</h2>
-    {% endif %}
+    <form method="GET">
+        {{ form }}
+        <button type="submit">find</button>
+    </form>
 
     {% include 'shared/posts.html' with posts=posts %}
-    {% include 'shared/pagination.html' %}
 {% endblock %}

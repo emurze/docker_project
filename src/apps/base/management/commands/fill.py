@@ -1,3 +1,4 @@
+import logging
 import random
 from operator import attrgetter
 
@@ -5,9 +6,10 @@ import lorem
 from django.core.management import BaseCommand
 from taggit.models import Tag
 
-from src.apps.base.models import Post, Comment
+from apps.base.models import Post, Comment
 
 DEFAULT_COUNT = 100
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -41,7 +43,7 @@ class Command(BaseCommand):
 
         comments = []
         for index, post in enumerate(posts):
-            print(f'post {index}')
+            logger.debug(f'post {index}')
             random_tags = random.sample(tags, 5)
             post.tags.add(*map(attrgetter('name'), random_tags))
             comments += (

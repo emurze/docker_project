@@ -2,7 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <style>
+        a, a:visited, a:hover, a:active {
+            color: inherit;
+            text-decoration: none;
+        }
+        a:hover{text-decoration: none;}
+        .current {font-weight: bold}
+    </style>
 </head>
 <body>
     <div class="app_wrapper">

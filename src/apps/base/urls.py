@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.urls import path
 
 from .views import PostList, Share, PostDetail
+from .views.post_search import PostSearch
 
 app_name = 'base'
 
@@ -13,4 +14,6 @@ urlpatterns = [
     path('detail/<int:year>/<int:month>/<int:day>/<slug:slug>/',
          PostDetail.as_view(), name='detail'),
     path('share/<int:pk>/', Share.as_view(), name='share'),
+
+    path('search/', PostSearch.as_view(), name='search'),
 ]

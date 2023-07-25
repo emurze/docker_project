@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Comment
+from .models import Comment, Post
 
 
 class ShareForm(forms.Form):
@@ -40,3 +40,7 @@ class CommentForm(forms.ModelForm):
                 }
             )
         }
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=32)
